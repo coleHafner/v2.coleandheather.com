@@ -342,15 +342,15 @@ class Info extends Controller{
 				
 				$options = array (
 					'records' => $hotels,
+					'is_static' => FALSE,
 					'records_per_row' => 2,
 					'active_controller' => &$this,
 					'html_cmd' => "render-grid-item",
-					'table_classes' => 'class="hotel_grid"',
+					'extra_classes' => 'class="hotel_grid"',
 					'empty_message' => "There are 0 hotels. Please check back later."
 				);
 				
 				$table = $this->m_common->getHtml( 'display-grid', $options );
-				
 				
 				$html = '
 				<div class="padder_10">

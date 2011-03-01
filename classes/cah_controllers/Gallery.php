@@ -67,11 +67,12 @@ class Gallery extends Controller{
 				$pics = $this->getPics();
 				
 				$options = array (
-					'records_per_row' => 3,
 					'records' => $pics,
+					'is_static' => FALSE,
+					'records_per_row' => 3,
 					'active_controller' => &$this,
 					'html_cmd' => "render-grid-item",
-					'table_classes' => 'class="gallery_pic_grid"',
+					'extra_classes' => 'class="gallery_pic_grid"',
 					'empty_message' => "There are 0 pictures. Please check back later."
 				);
 				
