@@ -76,8 +76,10 @@ class Layout
 		<html xmlns="http://www.w3.org/1999/xhtml" ' . $fb_xmls . '>
 		
 		<head>
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-			<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+			<meta name="viewport" content="width=device-width; user-scalable=1;" >
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+			<meta name="apple-mobile-web-app-status-bar-style" content="black" >
+			<meta name="apple-mobile-web-app-capable" content="yes"  >
 			
 			<title>' . $alias . ' - ' . $site . '</title>
 
