@@ -299,12 +299,14 @@ function mapToggleControls( cmd )
 	
 	if( cmd == "hide" )
 	{
-		$( "#map_controls" ).removeClass( "controls_visible" ).addClass( "controls_hidden" );
+		//$( "#map_controls" ).removeClass( "controls_visible" ).addClass( "controls_hidden" );
+		$( "#map_controls" ).animate( { top:'-=324' }, 700 );
 		$( "#map_tab_link" ).html( "Show" );
 	}
 	else
 	{
-		$( "#map_controls" ).removeClass( "controls_hidden" ).addClass( "controls_visible" );
+		//$( "#map_controls" ).removeClass( "controls_hidden" ).addClass( "controls_visible" );
+		$( "#map_controls" ).animate( { top:'+=323' }, 700 );
 		$( "#map_tab_link" ).html( "Hide" );
 	}
 	
