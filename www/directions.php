@@ -14,7 +14,8 @@ echo '
 	<body onLoad="mapShowRoute( \'' . $start . '\' );">
 		<div class="container_12">
 			<div class="grid_12">
-				<div id="map_canvas" style="position:relative;height:350px;background-color:#FFF;"></div>
+				<div id="map_canvas" style="position:relative;height:350px;background-color:#FFF;margin-top:10px;">
+				</div>
 			</div>
 			
 			<div class="clear"></div>
