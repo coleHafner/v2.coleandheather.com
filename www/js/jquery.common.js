@@ -187,7 +187,7 @@ $( document ).ready( function() {
 					
 					//populate directions link
 					var start_formatted = start.replace( / /g, "_" );
-					$( "#full_screen_link" ).html( '<a href="/directions.php?start=' + start_formatted + '">Go Full Screen &gt;&gt;</a>' );
+					$( "#full_screen_link" ).html( '<a href="/directions.php?start=' + start_formatted + '" target="_blank">Go Full Screen &gt;&gt;</a>' );
 				}
 				else
 				{

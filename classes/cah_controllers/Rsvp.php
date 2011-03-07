@@ -48,6 +48,10 @@ class Rsvp extends Controller{
 					' . $html_content['html'] . '
 				</div>
 			</div>
+			
+			<div style="position:absolute;top:10px;right:10px;font-size:12px;">
+				Having trouble with your RSVP? <a href="mailto:colehafner@gmail.com?subject=RSVP Trouble - coleandheather.com">Get help.</a>
+			</div>
 		</div>
 		';
 		
@@ -428,6 +432,9 @@ class Rsvp extends Controller{
 						</a>
 					</div>' 
 				);
+				
+				//disabled
+				$return = array( 'html' => '' );
 				break;
 				
 			case "activation-code-grid":
