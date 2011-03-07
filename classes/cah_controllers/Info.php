@@ -90,6 +90,7 @@ class Info extends Controller{
 				<div class="directions_canvas">
 					<div class="padder_10 header_text_sub color_brown">
 						Directions
+						<div id="full_screen_link"></div>
 					</div>
 							
 					<div class="padder_10 padder_no_top" id="directions_canvas">

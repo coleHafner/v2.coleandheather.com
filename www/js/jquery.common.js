@@ -16,6 +16,11 @@ $( document ).ready( function() {
 		adjustCanvasHeightForGallery( function(){} );
 	}
 	
+	if( $( "#her_story" ).length > 0 )
+	{
+		adjustCanvasHeightForTwoCol( function(){} );
+	}
+	
 	$( ".rsvp" ).live( "click", function( event ) {
 		
 		event.preventDefault();
@@ -179,6 +184,10 @@ $( document ).ready( function() {
 				{
 					var start = ( address.length > 0 ) ? address + " " + city + " " + state : city + " " + state;
 					mapShowRoute( start );
+					
+					//populate directions link
+					var start_formatted = start.replace( / /g, "_" );
+					$( "#full_screen_link" ).html( '<a href="/directions.php?start=' + start_formatted + '">Go Full Screen &gt;&gt;</a>' );
 				}
 				else
 				{
@@ -403,6 +412,18 @@ function adjustCanvasHeightForGallery( callback )
 {
 	$( ".content" ).css( "padding-bottom", "10px" );
 	$( ".content" ).css( "height", "auto" );
+	callback();
+	
+}//adjustCanvasHeightForGallery()
+
+/**
+ * Adjusts the height of the canvas for the gallery page 
+ * @param 	function	callback	callback function
+ */
+function adjustCanvasHeightForTwoCol( callback )
+{
+	$( ".content" ).css( "height", "750px" );
+	$( ".side_bar" ).css( "height", "750px" );
 	callback();
 	
 }//adjustCanvasHeightForGallery()

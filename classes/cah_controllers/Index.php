@@ -20,8 +20,8 @@ class Index extends Controller{
 		parent::setControllerVars( $controller_vars );
 		
 		$this->m_valid_views = array( 
+			'her-story' => "Her Story",
 			'his-story' => "His Story", 
-			'her-story' => "Her Story", 
 			'did-you-know' => "Did You Know" 
 		);
 		
@@ -88,7 +88,7 @@ class Index extends Controller{
 				</div>
 				
 				<div class="padder_10">
-					' . $story->m_body . '
+					' . $this->m_common->formatText( $story->m_body, "default_line_height" ) . '
 				</div>
 				';
 				
@@ -100,12 +100,12 @@ class Index extends Controller{
 				$story = $articles[0];
 				
 				$html = '
-				<div class="padder_10 header_text color_brown">
+				<div class="padder_10 header_text color_brown" id="her_story">
 					' . $story->m_title . '
 				</div>
 				
 				<div class="padder_10">
-					' . $story->m_body . '
+					' . $this->m_common->formatText( $story->m_body, "default_line_height" ) . '
 				</div>
 				';
 				
@@ -131,7 +131,7 @@ class Index extends Controller{
 					'Both Cole and Heather are certified scuba divers.',
 					'Cole and Heather both have facebook accounts.',
 					'Heather attended grades K - 6 in Las Vegas.',
-					'Heather is actually a robot.'
+					'Cole is actually a robot.'
 				);
 				
 				$html = '
