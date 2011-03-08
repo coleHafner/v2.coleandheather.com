@@ -1,5 +1,7 @@
 <?
 
+session_start();
+
 require_once( "cah_controllers/Gallery.php" );
 require_once( "cah_base/Authentication.php" );
 require_once( "cah_controllers/Rsvp.php" );
@@ -29,6 +31,16 @@ switch( $task )
 		
 	case "rsvp":
 		
+		//for record keeping
+		$rsvp_through_site = "1";
+				
+		if( is_object( $active_user ) && 
+			$active_user->m_user_id > 0 && 
+			$active_user->permissionUserHasAny( array( 'spr' ) ) )
+		{
+			$rsvp_through_site = "0";
+		}
+		
 		switch( $process )
 		{
 			case "validate-activation-code":
@@ -47,7 +59,7 @@ switch( $task )
 			case "update-rsvp":
 				$guest = new Guest( $_POST['guest_id'], TRUE );
 				$guest_list = ( $_POST['is_attending'] == "1" ) ? array( $guest->m_guest_id )  : array();
-				$guest->updateGroupRsvpStatus( $_POST['is_attending'], $guest_list );
+				$guest->updateGroupRsvpStatus( $_POST['is_attending'], $guest_list, $rsvp_through_site );
 				break;
 				
 			case "show-rsvp-confirmation":
@@ -94,7 +106,7 @@ switch( $task )
 				
 			case "finalize-rsvp":
 				$guest = new Guest( $_POST['parent_guest_id'], TRUE );
-				$guest->updateGroupRsvpStatus( $_POST['is_attending'], $_POST['guests'] );
+				$guest->updateGroupRsvpStatus( $_POST['is_attending'], $_POST['guests'], $rsvp_through_site );
 				break;
 				
 			case "rsvp-thank-you":

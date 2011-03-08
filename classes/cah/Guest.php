@@ -622,6 +622,55 @@ class Guest
 		
 	}//getAllParents()
 	
+	public static function getStats()
+	{
+		$return = array();
+		$common = new Common();
+		
+		$queries = array(
+			'new' => "SELECT count(*) FROM cah_Guests WHERE is_new = 1",
+			'total' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0",
+			'replied' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL",
+			'attending' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND is_attending = 1 AND update_timestamp IS NOT NULL",
+			'not_attending' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND is_attending = 0 AND update_timestamp IS NOT NULL"
+		);
+		
+		foreach( $queries as $k => $sql )
+		{
+			$result = $common->m_db->query( $sql, __FILE__, __LINE__ );
+			$row = $common->m_db->fetchRow( $result );
+			$return[$k] = $row[0];
+		}
+		
+		return $return;
+		
+	}//getStats()
+	
+	public static function getGuestLists()
+	{
+		$return = array();
+		$common = new Common();
+		
+		$queries = array(
+			'new' => "SELECT guest_id FROM cah_Guests WHERE is_new = 1 ORDER BY last_name, first_name ASC",
+			'replied' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC",
+			'attending' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND is_attending = 1 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC"
+		);
+		
+		foreach( $queries as $k => $sql )
+		{
+			$result = $common->m_db->query( $sql, __FILE__, __LINE__ );
+			
+			while( $row = $common->m_db->fetchRow( $result ) )
+			{
+				$return[$k][] = new Guest( $row[0], FALSE );
+			}
+		}
+		
+		return $return;
+		
+	}//getStats()
+	
 	public function setIsNew( $is_new = TRUE )
 	{
 		$is_new = ( $is_new === TRUE ) ? "1" : "0";
@@ -637,28 +686,35 @@ class Guest
 		
 	}//setIsNew()
 	
-	public function updateGroupRsvpStatus( $rsvp_answer, $guest_list = array() )
+	/**
+	 * Updates a group of guests.
+	 * @param 	string		 	$rsvp_answer			1 or 0 whether the user chose to RSVP
+	 * @param 	string		 	$guest_list				array of guest ids
+	 * @param 	string		 	$rsvp_through_site		1 or 0. If the RSVP was sent in the mail, the admin logs in a updates their status. RSVP through site = 0, if user updates his or herself through the interface RSVP through site = 1
+	 */
+	public function updateGroupRsvpStatus( $rsvp_answer, $guest_list = array(), $rsvp_through_site )
 	{
+		
 		//set vars
 		$update_timestamp = strtotime( "now" );
 		$actual_count = ( $rsvp_answer == "1" ) ? count( $guest_list ) : 0;
 		
 		//update parent guest
 		$is_attending = ( in_array( $this->m_guest_id, $guest_list) ) ? "1" : "0";
-		$this->updateIndividualRsvpStatus( &$this, $is_attending, $update_timestamp, $actual_count );
+		$this->updateIndividualRsvpStatus( &$this, $is_attending, $update_timestamp, $actual_count, $rsvp_through_site );
 		
 		//update sub guests
 		foreach( $this->m_linked_objects['sub_guests'] as $sub_g )
 		{
 			$is_attending = ( in_array( $sub_g->m_guest_id, $guest_list) ) ? "1" : "0";
-			$this->updateIndividualRsvpStatus( &$sub_g, $is_attending, $update_timestamp, $actual_count );
+			$this->updateIndividualRsvpStatus( &$sub_g, $is_attending, $update_timestamp, $actual_count, $rsvp_through_site );
 		}
 		
 		return TRUE;
 		
 	}//updateRsvpStatus()
 	
-	public function updateIndividualRsvpStatus( &$guest, $is_attending, $update_timestamp, $actual_count )
+	public function updateIndividualRsvpStatus( &$guest, $is_attending, $update_timestamp, $actual_count, $rsvp_through_site )
 	{
 		
 		if( $guest->m_parent_guest_id == 0 )
@@ -672,11 +728,10 @@ class Guest
 		SET is_attending = " . $is_attending . ",
 			update_timestamp = '" . $update_timestamp . "',
 			" . $actual_count_constraint . "
-			rsvp_through_site = 1
+			rsvp_through_site = " . $rsvp_through_site . "
 		WHERE guest_id = " . $guest->m_guest_id;
-
-		$this->m_common->m_db->query( $sql, __FILE__, __LINE__ );
 		
+		$this->m_common->m_db->query( $sql, __FILE__, __LINE__ );
 		return TRUE;
 		
 	}//updateIndividualRsvpStatus()

@@ -297,6 +297,27 @@ Fonts and borders
 	color:#000;
 }
 
+.font_big {
+	font-family:arial;
+	font-size:45px;
+	font-weight:normal;
+	color:#000;
+}
+
+.font_med {
+	font-family:arial;
+	font-size:20px;
+	font-weight:normal;
+	color:#000;
+}
+
+.font_med_II {
+	font-family:arial;
+	font-size:15px;
+	font-weight:normal;
+	color:#000;
+}
+
 .font_example {
 	font-family:arial;
 	font-size:13px;
@@ -394,6 +415,10 @@ Colors
 
 .border_color_white {
 	border-color:#FFF;
+}
+
+.border_tan {
+	border:1px solid #DEDBDB;
 }
 
 .border_dark_grey {
@@ -809,4 +834,37 @@ Admin
 	position:relative;
 	display:block;
 	padding-bottom:3px;
+}
+
+.rsvp_stats {
+	position:relative;
+	width:100%;
+	margin-top:15px;
+}
+
+.rsvp_stats td {
+	width:25%;
+}
+
+.rsvp_stat {
+	position:relative;
+	width:120px;
+	height:120px;
+	margin:auto;
+}
+
+.rsvp_num {
+	position:relative;
+	margin-top:15px;
+}
+
+.guest_list {
+	position:relative;
+}
+
+.guest_list_container {
+	position:relative;
+	width:200px;
+	float:left;
+	min-height:200px;
 }

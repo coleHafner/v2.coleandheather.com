@@ -212,7 +212,7 @@ class Rsvp extends Controller{
 									</td>
 									<td>
 							
-										<a href="#" class="rsvp button rounded_corners color_brown_bg center" process="update-rsvp" guest_id="' . $guest->m_guest_id . '" value="0">
+										<a href="#" class="rsvp button rounded_corners color_red_bg center" process="update-rsvp" guest_id="' . $guest->m_guest_id . '" value="0">
 											<span class="header_text color_white">
 												No
 											</span>

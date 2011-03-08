@@ -4,6 +4,7 @@
  * @since	20100425, halfNerd
  */
 
+require_once( "cah/Guest.php" );
 require_once( "cah_base/View.php" );
 require_once( "cah_base/User.php" );
 require_once( "cah_base/Article.php" );
@@ -25,13 +26,13 @@ class Admin extends Controller{
 		parent::setControllerVars( $controller_vars );
 		
 		$this->m_valid_views = array(
-			'greeting' => "", 
-			'manage-posts' => "", 
-			'manage-pages' => "", 
-			'manage-users' => "",
-			'manage-settings' => "",
-			'manage-sections' => "",
-			'manage-permissions' => "" 
+			'greeting' => "",
+			'manage-pages' => "Pages",
+			'manage-permissions' => "Permissions",
+			'manage-posts' => "Posts",
+			'rsvp-stats' => "RSVP Stats",
+			'manage-settings' => "Settings", 
+			'manage-users' => "Users"
 		);
 		
 	}//constructor
@@ -108,14 +109,6 @@ class Admin extends Controller{
 				$title = "";
 				$title_button = '';
 				
-				$basic_options = array( 
-					'manage-pages' => "Pages",
-					'manage-permissions' => "Permissions",
-					'manage-posts' => "Posts",
-					'manage-settings' => "Settings",
-					'manage-users' => "Users"
-				);
-				
 				$html = '
 				<div class="admin_menu_container rounded_corners padder bg_color_light_tan">
 				
@@ -127,18 +120,21 @@ class Admin extends Controller{
 						<ul class="main_nav_list">
 						';
 						
-			foreach( $basic_options as $sub => $display )
+			foreach( $this->m_valid_views as $sub => $display )
 			{
-				$selected = ( $this->m_controller_vars['sub'] == $sub ) ? 'class="selected"' : '';
-				$pointer = ( $this->m_controller_vars['sub'] == $sub ) ? '&nbsp;&gt;&gt;' : '';
-				
-				$html .= '
+				if( $sub != "greeting" )
+				{
+					$selected = ( $this->m_controller_vars['sub'] == $sub ) ? 'class="selected"' : '';
+					$pointer = ( $this->m_controller_vars['sub'] == $sub ) ? '&nbsp;&gt;&gt;' : '';
+					
+					$html .= '
 							<li>
 								<a ' . $selected . ' href="' . $this->m_common->makeLink( array( 'v' => "admin", 'sub' => $sub ) ) . '">
 									' . $display . $pointer . '
 								</a>
 							</li>
 							';
+				}
 			}
 						
 			$html .= '
@@ -788,6 +784,153 @@ class Admin extends Controller{
 				}
 				
 				$return = array( 'html' => $html );
+				break;
+				
+			case "rsvp-stats":
+				
+				$title = "RSVP Stats";
+				$stats = Guest::getStats();
+				$lists = Guest::getGuestLists();
+				
+				$html = '
+				<table class="rsvp_stats">
+					<tr>
+						<td>
+							<div class="rsvp_stat rounded_corners border_tan center bg_color_light_tan">
+								<div class="padder">
+									<div class="bg_color_white center header padder rounded_corners color_orange">
+										Attending
+									</div>
+									<div class="rsvp_num color_accent font_big">
+										' . $stats['attending']. ' 
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="rsvp_stat rounded_corners border_tan center bg_color_light_tan">
+								<div class="padder">
+									<div class="bg_color_white center header padder rounded_corners color_orange">
+										Not Attending
+									</div>
+									<div class="rsvp_num color_accent font_big">
+										' . $stats['not_attending']. ' 
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="rsvp_stat rounded_corners border_tan center bg_color_light_tan">
+								<div class="padder">
+									<div class="bg_color_white center header padder rounded_corners color_orange">
+										New Guests
+									</div>
+									<div class="rsvp_num color_accent font_big">
+										' . $stats['new']. ' 
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="rsvp_stat rounded_corners border_tan center bg_color_light_tan">
+								<div class="padder">
+									<div class="bg_color_white center header padder rounded_corners color_orange">
+										% Replied
+									</div>
+									<div class="rsvp_num color_accent font_big">
+										' . substr( $stats['replied']/$stats['total'], 0, 4 ) * 100 . ' 
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				
+				<div style="position:relative;margin:15px auto auto auto;width:650px;">
+				
+					<div class="guest_list_container border_tan" style="margin-right:22px;">
+					
+						<div class="font_med padder bg_color_light_tan">
+							Replied
+						</div>
+						
+						<div class="padder">
+							<table class="guest_list font_med_II color_accent">
+							';
+				
+				foreach( $lists['replied'] as $i => $g )
+				{
+					$html .= '
+								<tr>
+									<td>
+										' . $g->m_last_name . ', ' . $g->m_first_name . '
+									</td>
+								</tr>
+								';	
+				}
+				
+				$html .= '
+							</table>
+						</div>
+					</div>
+							
+					<div class="guest_list_container border_tan" style="margin-right:22px;">
+					
+						<div class="font_med padder bg_color_light_tan">
+							Attending
+						</div>
+						
+						<div class="padder">
+							<table class="guest_list font_med_II color_accent">
+							';
+				
+				foreach( $lists['attending'] as $i => $g )
+				{
+					$html .= '
+								<tr>
+									<td>
+										' . $g->m_last_name . ', ' . $g->m_first_name . '
+									</td>
+								</tr>
+								';
+				}
+				
+				$html .= '
+							</table>
+						</div>
+					</div>
+							
+					<div class="guest_list_container border_tan">
+					
+						<div class="font_med padder bg_color_light_tan">
+							New
+						</div>
+						
+						<div class="padder">
+							<table class="guest_list font_med_II color_accent">
+							';
+				
+				foreach( $lists['new'] as $i => $g )
+				{
+					$html .= '
+								<tr>
+									<td>
+										' . $g->m_last_name . ', ' . $g->m_first_name . '
+									</td>
+								</tr>
+								';
+				}
+				
+				$html .= '
+							</table>
+						</div>
+					</div>
+							
+					<div class="clear"></div>
+				</div>
+				';
+				
+				$return = array( 'title' => $title, 'title_button' => "", 'html' => $html );
 				break;
 			
 			default:
