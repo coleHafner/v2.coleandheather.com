@@ -661,9 +661,16 @@ class Guest
 		{
 			$result = $common->m_db->query( $sql, __FILE__, __LINE__ );
 			
-			while( $row = $common->m_db->fetchRow( $result ) )
+			if( $common->m_db->numRows( $result ) > 0 )
 			{
-				$return[$k][] = new Guest( $row[0], FALSE );
+				while( $row = $common->m_db->fetchRow( $result ) )
+				{
+					$return[$k][] = new Guest( $row[0], FALSE );
+				}
+			}
+			else 
+			{
+				$return[$k] = array();
 			}
 		}
 		

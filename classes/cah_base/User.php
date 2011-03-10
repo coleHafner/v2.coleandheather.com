@@ -906,7 +906,7 @@ class User
 				$active_user = new User( Authentication::getLoginUserId() );
 				
 				//get default vars
-				$form_vars = $u->getDefaultFormVars();
+				$form_vars = $u->getDefaultFormVars( &$u );
 				
 				//get login form
 				$login_form = self::getHtml( "get-login-form", array( 
