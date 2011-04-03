@@ -654,7 +654,9 @@ class Guest
 		$queries = array(
 			'new' => "SELECT guest_id FROM cah_Guests WHERE is_new = 1 ORDER BY last_name, first_name ASC",
 			'replied' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC",
-			'attending' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND is_attending = 1 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC"
+			'most_recent' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL ORDER BY update_timestamp DESC LIMIT 7",
+			'attending' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND is_attending = 1 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC",
+			'not_attending' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND is_attending = 0 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC"
 		);
 		
 		foreach( $queries as $k => $sql )

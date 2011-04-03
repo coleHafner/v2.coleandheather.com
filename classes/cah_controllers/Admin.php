@@ -851,14 +851,14 @@ class Admin extends Controller{
 					<div class="guest_list_container border_tan" style="margin-right:22px;">
 					
 						<div class="font_med padder bg_color_light_tan">
-							Replied
+							Not Attending
 						</div>
 						
 						<div class="padder">
 							<table class="guest_list font_med_II color_accent">
 							';
 				
-				foreach( $lists['replied'] as $i => $g )
+				foreach( $lists['not_attending'] as $i => $g )
 				{
 					$html .= '
 								<tr>
@@ -925,7 +925,35 @@ class Admin extends Controller{
 							</table>
 						</div>
 					</div>
-							
+					
+					<div class="guest_list_container border_tan" style="margin-top:20px;">
+					
+						<div class="font_med padder bg_color_light_tan">
+							Most Recent
+						</div>
+						
+						<div class="padder">
+							<table class="guest_list font_med_II color_accent">
+							';
+				
+				foreach( $lists['most_recent'] as $i => $g )
+				{
+					$attending = ( $g->m_is_attending === TRUE ) ? "Y" : "N";
+					
+					$html .= '
+								<tr>
+									<td>
+										' . $g->m_last_name . ', ' . $g->m_first_name . ' (' . $attending . ')
+									</td>
+								</tr>
+								';
+				}
+				
+				$html .= '
+							</table>
+						</div>
+					</div>
+					
 					<div class="clear"></div>
 				</div>
 				';

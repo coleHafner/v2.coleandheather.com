@@ -202,7 +202,7 @@ class Layout
 					
 					<div class="grid_10">
 						<div class="footer">
-							' . strtoupper( '&copy;Cole and Heather 2011 <span style="color:#00FFFF;font-weight:bold;">|</span> Lovingly handcrafted by Halfnerd' ) . '
+							' . strtoupper( '&copy;Cole and Heather 2011 <span style="color:#00FFFF;font-weight:bold;">|</span> Lovingly handcrafted by <a href="http://colehafner.com" target="_blank">Cole</a>' ) . '
 						</div>
 					</div>
 					
