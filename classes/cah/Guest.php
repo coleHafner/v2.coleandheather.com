@@ -629,8 +629,8 @@ class Guest
 		
 		$queries = array(
 			'new' => "SELECT count(*) FROM cah_Guests WHERE is_new = 1",
-			'total' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0",
-			'replied' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL",
+			'total' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND is_new = 0",
+			'replied' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL AND is_new = 0",
 			'attending' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND is_attending = 1 AND update_timestamp IS NOT NULL",
 			'not_attending' => "SELECT count(*) FROM cah_Guests WHERE guest_id > 0 AND is_attending = 0 AND update_timestamp IS NOT NULL"
 		);
@@ -654,7 +654,7 @@ class Guest
 		$queries = array(
 			'new' => "SELECT guest_id FROM cah_Guests WHERE is_new = 1 ORDER BY last_name, first_name ASC",
 			'replied' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC",
-			'most_recent' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL ORDER BY update_timestamp DESC LIMIT 7",
+			'most_recent' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND update_timestamp IS NOT NULL ORDER BY update_timestamp DESC LIMIT 10",
 			'attending' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND is_attending = 1 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC",
 			'not_attending' => "SELECT guest_id FROM cah_Guests WHERE guest_id > 0 AND is_attending = 0 AND update_timestamp IS NOT NULL  ORDER BY last_name, first_name ASC"
 		);
