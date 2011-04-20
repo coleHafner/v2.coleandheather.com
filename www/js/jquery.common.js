@@ -36,7 +36,7 @@ $( document ).ready( function() {
 				//fetch current users data
 				$.ajax({
 					type:'post',
-					url:'/ajax/cah_helper.php?task=rsvp&process=' + process,
+					url:'/www/ajax/cah_helper.php?task=rsvp&process=' + process,
 					data: { activation_code: activation_code },
 					success: function( reply ) {
 						
@@ -64,7 +64,7 @@ $( document ).ready( function() {
 				
 				$.ajax({
 					type:'post',
-					url:'/ajax/cah_helper.php?task=rsvp&process=' + process,
+					url:'/www/ajax/cah_helper.php?task=rsvp&process=' + process,
 					data: { guest_id: guest_id, is_attending: is_attending },
 					success: function( reply ) {
 						
@@ -93,7 +93,7 @@ $( document ).ready( function() {
 				//fetch current users data
 				$.ajax({
 					type:'post',
-					url:'/ajax/cah_helper.php?task=rsvp&process=' + process,
+					url:'/www/ajax/cah_helper.php?task=rsvp&process=' + process,
 					data: $( "#guest_add_form" ).serialize( true ),
 					success: function( reply ) {
 					
@@ -124,7 +124,7 @@ $( document ).ready( function() {
 				//fetch current users data
 				$.ajax({
 					type:'post',
-					url:'/ajax/cah_helper.php?task=rsvp&process=' + process,
+					url:'/www/ajax/cah_helper.php?task=rsvp&process=' + process,
 					data: { guest_id: guest_id },
 					success: function( reply ) {
 						
@@ -140,7 +140,7 @@ $( document ).ready( function() {
 				
 				$.ajax({
 					type:'post',
-					url: '/ajax/cah_helper.php?task=rsvp&process=' + process,
+					url: '/www/ajax/cah_helper.php?task=rsvp&process=' + process,
 					data:$( "#rsvp_final_step" ).serialize( true ),
 					success: function( reply ) {
 					
@@ -370,7 +370,7 @@ function showRsvpHtml( cmd, options, callback )
 		case "show-rsvp-confirmation":
 			$.ajax({
 				type:'post',
-				url:'/ajax/cah_helper.php?task=rsvp&process=' + cmd,
+				url:'/www/ajax/cah_helper.php?task=rsvp&process=' + cmd,
 				data:{ guest_id: options.guest_id, is_attending: options.is_attending },
 				success: function( reply_html ) {
 					adjustCanvasHeight( function(){ $( "#rsvp_container" ).html( reply_html ); } );
@@ -381,7 +381,7 @@ function showRsvpHtml( cmd, options, callback )
 		case "rsvp-thank-you":
 			$.ajax({
 				type:'post',
-				url:'/ajax/cah_helper.php?task=rsvp&process=' + cmd,
+				url:'/www/ajax/cah_helper.php?task=rsvp&process=' + cmd,
 				data:{ guest_id: options.guest_id },
 				success: function( reply_html ) {
 					adjustCanvasHeight( function(){ $( "#rsvp_container" ).html( reply_html ); } );
