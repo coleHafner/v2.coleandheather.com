@@ -122,11 +122,11 @@ class Common {
 				'user_images' => "/images/users",
 				'images_ex' => "/images/extensions",
 				'classes_controllers' => "cah_controllers",
-				'absolute' => "/home/users/web/b937/moo.halfnerdcom/cah",
-				'db_host' => "halfnerdcom.fatcowmysql.com",
+				'absolute' => "/home8/colehafn/public_html/coleandheather.com",
+				'db_host' => "localhost",
 				'db_pass' => "passwd1000!",
-				'db_user' => "cah_user",
-				'db_name' => "cah"
+				'db_user' => "colehafn_cah",
+				'db_name' => "colehafn_cah"
 			),
 			
 			//live server
@@ -143,11 +143,11 @@ class Common {
 				'user_images' => "/images/users",
 				'images_ex' => "/images/extensions",
 				'classes_controllers' => "cah_controllers",
-				'absolute' => "/home/users/web/b937/moo.halfnerdcom/coleandheather.com",
-				'db_host' => "halfnerdcom.fatcowmysql.com",
+				'absolute' => "/home8/colehafn/public_html/coleandheather.com",
+				'db_host' => "localhost",
 				'db_pass' => "passwd1000!",
-				'db_user' => "cah_user_live",
-				'db_name' => "cah_live"
+				'db_user' => "colehafn_cah",
+				'db_name' => "colehafn_cah"
 			)
 		);
 		
