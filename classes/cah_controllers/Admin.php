@@ -1018,14 +1018,16 @@ class Admin extends Controller{
 					</tr>
 					';
 				
-				foreach( $guests as $i => $g )
+				if( is_array( $guests ) && count( $guests ) > 0 )
 				{
-					$is_attending = "-";
-					$bg_class = ( $i%2 ) ? 'class="bg_color_light_tan"' : '';
-					$has_replied = ( !is_null( $g->m_update_timestamp ) ) ? "Yes" : "No";
-					if( $has_replied == "Yes" )$is_attending = ( $g->m_is_attending === TRUE ) ? "Yes" : "No";
-					
-					$html .= '
+					foreach( $guests as $i => $g )
+					{
+						$is_attending = "-";
+						$bg_class = ( $i%2 ) ? 'class="bg_color_light_tan"' : '';
+						$has_replied = ( !is_null( $g->m_update_timestamp ) ) ? "Yes" : "No";
+						if( $has_replied == "Yes" )$is_attending = ( $g->m_is_attending === TRUE ) ? "Yes" : "No";
+						
+						$html .= '
 					<tr ' . $bg_class . '>
 						<td class="padder">
 							' . $g->m_last_name . ', ' . $g->m_first_name . '
@@ -1038,6 +1040,18 @@ class Admin extends Controller{
 						</td>
 					</tr>
 					';	
+					}
+				}
+				else
+				{
+					$html .= '
+					<tr>
+						<td colspan="3" style="text-align:center;">
+							<br/><br/>
+							There are 0 guests that match your criteria.
+						</td>
+					</tr>
+					';
 				}
 				
 				$html .= '
