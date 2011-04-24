@@ -75,6 +75,7 @@ class LayoutAdmin
 			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.auth.js"></script>
 			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.article.js"></script>
 			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.file.js"></script>
+			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.guest.js"></script>
 			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.mail.js"></script>
 			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.permission.js"></script>
 			<script type="text/javascript" src="' . $file_paths['js_nerd'] . '/jquery.halfnerd.section.js"></script>

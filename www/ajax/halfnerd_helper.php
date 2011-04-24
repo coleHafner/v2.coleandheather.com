@@ -4,6 +4,7 @@
 session_start();
 
 //require classes
+require_once( "cah/Guest.php" );
 require_once( "cah_base/Article.php" );
 require_once( "cah_base/Authentication.php" );
 require_once( "cah_base/Common.php" );
@@ -542,6 +543,25 @@ switch( $task )
 			case "send":
 				$email = new EmailMessage();
 				$email->sendMail( $_POST );
+				break;
+		}
+		break;
+		
+	case "guest":
+		
+		switch( $process )
+		{
+			case "apply_filter":
+				
+				//grab guests
+				$has_replied = ( $_POST['has_replied'] == "-" ) ? FALSE : $_POST['has_replied'];
+				$guest_type_id = ( $_POST['guest_type_id'] == "0") ? FALSE : $_POST['guest_type_id'];
+				$guests = Guest::getGuestListComplete( $has_replied, $guest_type_id );
+				
+				//show filtered list
+				$controller = new Admin( array() );
+				$html = $controller->getHtml( "get-complete-guest-list", array( 'guests' => $guests ) );
+				echo $html['html'];
 				break;
 		}
 		break;

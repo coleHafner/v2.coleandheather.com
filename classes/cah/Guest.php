@@ -680,6 +680,37 @@ class Guest
 		
 	}//getStats()
 	
+	public static function getGuestListComplete( $has_replied = FALSE, $guest_type_id = FALSE )
+	{
+		//setup vars
+		$join = " ";
+		$return = FALSE;
+		$constraints = " ";
+		$common = new Common();
+		
+		//apply constraints
+		if( $has_replied !== FALSE )
+		{
+			$constraints .= ( $has_replied == "yes" ) ? " AND g.update_timestamp IS NOT NULL " : " AND g.update_timestamp IS NULL ";
+		}
+		
+		if( $guest_type_id !== FALSE )
+		{
+			$join .= " JOIN cah_GuestToGuestType g2gt ON g.guest_id = g2gt.guest_id AND g2gt.guest_type_id = " . $guest_type_id . " ";
+		}
+		
+		$sql = "SELECT g.guest_id FROM cah_Guests g" . $join . "WHERE g.guest_id > 0" . $constraints . "ORDER BY g.last_name, g.first_name, g.is_attending ASC";
+		$result = $common->m_db->query( $sql, __FILE__, __LINE__ );
+		
+		while( $row = $common->m_db->fetchRow( $result ) )
+		{
+			$return[] = new Guest( $row[0], FALSE );
+		}
+		
+		return $return;
+		
+	}//getGuestListComplete()
+	
 	public function setIsNew( $is_new = TRUE )
 	{
 		$is_new = ( $is_new === TRUE ) ? "1" : "0";
@@ -948,12 +979,97 @@ class Guest
 				$return = array( 'html' => $html );
 				break;
 				
-			case "get-delete-form":
+			case "get-list-filter":
+				
+				$html = '
+				<span class="title_span header color_accent">
+					Filter Guest List
+				</span>
+				<div class="padder_10_top">
+					<form id="guest_list_form">
+						<div style="position:relative;width:35%;float:left;">
+							<span class="title_span">
+								Guest Type:
+							</span>
+							';
+				
+				$sql = "SELECT guest_type_id, title FROM cah_GuestTypes 
+				WHERE guest_type_id > 0 AND active = 1 ORDER BY title ASC";
+				$result = $common->m_db->query( $sql, __FILE__, __LINE__ );
+				
+				if( $common->m_db->numRows( $result ) > 0 )
+				{
+					$html .= '
+							<div class="padder" style="padding-left:0px;">
+								<select name="guest_type_id">
+									<option value="0">
+										All Guest Types
+									</option>
+								';
+					
+					while( $row = $common->m_db->fetchRow( $result ) )
+					{
+						$html .= '
+									<option value="' . $row[0] . '">
+										' . $row[1] . '
+									</option>
+									';
+					}
+					
+					$html .= '
+								</select>
+							</div>
+								';
+				}//if we have any guest types
+				
+				$html .= '
+						</div>
+						
+						<div style="position:relative;width:35%;float:left;">
+							<span class="title_span">
+								Has Replied:
+							</span>
+							<div class="padder" style="padding-left:0px;">
+								<input type="radio" name="has_replied" value="yes" />&nbsp;Yes
+								&nbsp;&nbsp;
+								<input type="radio" name="has_replied" value="no" />&nbsp;No
+								&nbsp;&nbsp;
+								<input type="radio" name="has_replied" value="-" checked="checked" />&nbsp;Doesn\'t Matter
+							</div>
+						</div>
+						
+						<div style="position:relative;width:30%;float:left;">
+							' . Common::getHtml( "get-form-buttons", array( 
+									'left' => array( 
+										'pk_name' => "guest_list_id",
+										'pk_value' => 0,
+										'process' => "apply_filter",
+										'id' => "guest_list",
+										'button_value' => "Filter",
+										'extra_style' => 'style="width:41px;"' ),
+										
+									'right' => array(
+										'pk_name' => "guest_list_id",
+										'pk_value' => 0,
+										'process' => "cancel_filter",
+										'id' => "guest_list",
+										'button_value' => "Cancel",
+										'extra_style' => 'style="width:41px;"' ),
+	
+									'table_style' => 'style="margin-top:18px;margin-left:15px;"'
+									
+									)
+								) . '
+						</div>
+					</div>
+					
+					<div class="clear"></div>
+				</form>
+				';
+				
+				$return = array( 'html' => $html );
 				break;
 							
-			case "get-section-selector":
-				break;
-				
 			default:
 				throw new Exception( "Error: Command '" . $cmd . "' is invalid." );
 				break;

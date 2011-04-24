@@ -31,6 +31,7 @@ class Admin extends Controller{
 			'manage-permissions' => "Permissions",
 			'manage-posts' => "Posts",
 			'rsvp-stats' => "RSVP Stats",
+			'guest-list' => "Guest List",
 			'manage-settings' => "Settings", 
 			'manage-users' => "Users"
 		);
@@ -959,6 +960,91 @@ class Admin extends Controller{
 				';
 				
 				$return = array( 'title' => $title, 'title_button' => "", 'html' => $html );
+				break;
+				
+			case "guest-list":
+				
+				$title = "Complete Guest List";
+				$guests = Guest::getGuestListComplete();
+				$list_html = self::getHtml( "get-complete-guest-list", array( 'guests' => $guests ) );
+				$filter_html = Guest::getHtml( 'get-list-filter', array() );
+				
+				$title_button = '
+				<div class="title_button_container">
+					' . Common::getHtml( "get-button-round", array(
+						'id' => "guest_list",
+						'process' => "show_filter",
+						'pk_name' => "guest_list_id",
+						'pk_value' => "0",
+						'button_value' => "Filter List",
+						'inner_div_style' => 'style="padding-top:4px;padding-left:1px;"',
+						'link_style' => 'style="float:right;width:70px;font-size:10px;"'
+					 ) ) . '
+				</div>
+				';
+				
+				$html = '
+				<div id="guest_list_filter" class="margin_10_top padder_10 rounded_corners bg_color_light_tan" style="display:none;">
+					' . $filter_html['html'] . '
+				</div>
+				
+				<div style="position:relative;margin:15px auto auto auto;width:100%;">
+				
+					<div class="padder" id="guest_list_container">
+						' . $list_html['html'] . '
+					</div>	
+				</div>
+				';
+				
+				$return = array( 'title' => $title, 'title_button' => $title_button, 'html' => $html );
+				break;
+				
+			case "get-complete-guest-list":
+				
+				$guests = $vars['guests'];
+				
+				$html = '
+				<table class="guest_list font_med_II color_accent" style="width:100%;border-collapse:collapse;">
+					<tr class="font_med bg_color_light_tan">
+						<td class="padder" style="width:33%;">
+							Guest Name
+						</td>
+						<td class="padder" style="width:33%;">
+							Replied?
+						</td>
+						<td class="padder" style="width:33%;">
+							Attending?
+						</td>
+					</tr>
+					';
+				
+				foreach( $guests as $i => $g )
+				{
+					$is_attending = "-";
+					$bg_class = ( $i%2 ) ? 'class="bg_color_light_tan"' : '';
+					$has_replied = ( !is_null( $g->m_update_timestamp ) ) ? "Yes" : "No";
+					if( $has_replied == "Yes" )$is_attending = ( $g->m_is_attending === TRUE ) ? "Yes" : "No";
+					
+					$html .= '
+					<tr ' . $bg_class . '>
+						<td class="padder">
+							' . $g->m_last_name . ', ' . $g->m_first_name . '
+						</td>
+						<td class="padder">
+							' . $has_replied . '
+						</td>
+						<td class="padder">
+							' . $is_attending . '
+						</td>
+					</tr>
+					';	
+				}
+				
+				$html .= '
+				</table>
+				';
+				
+				$return = array( 'html' => $html ); 
 				break;
 			
 			default:
