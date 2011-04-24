@@ -31,14 +31,12 @@ $( document ).ready( function(){
 					
 					$.ajax({
 						type:'post',
-						url: '/ajax/halfnerd_helper.php?task=guest&process=' + process,
+						url: '/www/ajax/halfnerd_helper.php?task=guest&process=' + process,
 						data:$( "#guest_list_form" ).serialize( true ),
 						success: function( reply ) {
 							
 							//show html
-							$( "#guest_list_container" ).html( reply, function(){
-								$( "#guest_list_filter" ).slideUp();
-							});
+							$( "#guest_list_container" ).html( reply );
 						}
 					});
 					break;
