@@ -1014,6 +1014,11 @@ class Admin extends Controller{
 						</td>
 						<td class="padder" style="width:33%;">
 							Attending?
+							<div class="font_normal bg_color_white color_accent" style="postion:relative;float:right;">
+								<div class="padder">
+									' . count( $guests ) . ' Guests
+								</div>
+							</div>
 						</td>
 					</tr>
 					';
