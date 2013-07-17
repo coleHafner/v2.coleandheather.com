@@ -9,29 +9,29 @@ require_once( "cah_base/Article.php" );
 require_once( "cah_base/File.php" );
 
 class Index extends Controller{
-	
+
 	/**
 	 * Constructs the Index controller object.
 	 * @return 	Index
-	 * @param	array			$controller_vars		array of variables for current layout.				
+	 * @param	array			$controller_vars		array of variables for current layout.
 	 */
 	public function __construct( $controller_vars )
 	{
 		parent::setControllerVars( $controller_vars );
-		
-		$this->m_valid_views = array( 
-			'anniversary-blog' => "Anniversary Blog",
-			'her-story' => "Her Story",
-			'his-story' => "His Story", 
-			'did-you-know' => "Did You Know",
+
+		$this->m_valid_views = array(
+			'anniversary-blog' => array('name' => "Anniversary Blog", 'new' => true),
+			'her-story' => array('name' => "Her Story"),
+			'his-story' => array('name' => "His Story"),
+			'did-you-know' => array('name' => "Did You Know"),
 		);
-		
+
 	}//constructor
-	
+
 	/**
 	 * @see classes/base/Controller#setContent()
 	 */
-	public function setContent() 
+	public function setContent()
 	{
 		$this->m_controller_vars['sub'] = $this->validateCurrentView();
 		$s_nav = $this->getHtml( 'secondary-nav', array() );
@@ -41,7 +41,7 @@ class Index extends Controller{
 		$this->m_content = '
 		<div class="grid_10">
 			<div class="content">
-				
+
 				<div class="side_bar">
 					<div class="side_bar_inner">
 						<div class="padder_10_top">
@@ -49,71 +49,71 @@ class Index extends Controller{
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="main_bar">
 					<div class="main_bar_inner">
 						<div class="padder_10">
 							' . $content['html'] . '
 						</div>
 					</div>
-				</div> 
-				
+				</div>
+
 				<div class="clear"></div>
-				
+
 			</div>
 		</div>
 		';
-		
+
 	}//setContent()
-	
+
 	/**
 	 * @see classes/base/Controller#getContent()
 	 */
-	public function getContent() 
+	public function getContent()
 	{
 		return $this->m_content;
 	}//getContent()
-	
-	public function getHtml( $cmd, $vars = array() ) 
+
+	public function getHtml( $cmd, $vars = array() )
 	{
 		switch( strtolower( trim( $cmd ) ) )
 		{
 			case "his-story":
 				$articles = Article::getArticle( "index", "his-story" );
 				$story = $articles[0];
-				
+
 				$html = '
 				<div class="padder_10 header_text color_brown">
 					' . $story->m_title . '
 				</div>
-				
+
 				<div class="padder_10">
 					' . $this->m_common->formatText( $story->m_body, "default_line_height" ) . '
 				</div>
 				';
-				
+
 				$return = array( 'html' => $html );
 				break;
-				
+
 			case "her-story":
 				$articles = Article::getArticle( "index", "her-story" );
 				$story = $articles[0];
-				
+
 				$html = '
 				<div class="padder_10 header_text color_brown" id="her_story">
 					' . $story->m_title . '
 				</div>
-				
+
 				<div class="padder_10">
 					' . $this->m_common->formatText( $story->m_body, "default_line_height" ) . '
 				</div>
 				';
-				
+
 				$return = array( 'html' => $html );
 				break;
-				
+
 			case "did-you-know":
-				
+
 				$facts = array(
 					'In the winter of 2012, Heather hopes to pursue her masters degree in special education at Pacific University in Forest Grove, Ore.',
 					'Heather\'s engagement ring is made of sapphires and diamonds, which are the same stones that are included in Cole\'s mom\'s engagement ring.',
@@ -136,7 +136,7 @@ class Index extends Controller{
 					'Heather attended grades K - 6 in Las Vegas.',
 					'Cole is actually a robot.'
 				);
-				
+
 				$html = '
 				<div class="padder_10 header_text color_brown">
 					Random Facts
@@ -147,14 +147,14 @@ class Index extends Controller{
 				<div class="padder_10">
 					<div class="padder_10 border_dashed_brown center header_text_sub color_black default_line_height" style="height:100px;margin-bottom:20px;">
 					';
-				
+
 				foreach( $facts as $i => $fact )
 				{
 					$html .= '
 					<span id="fact_' .  ( $i + 1 ) . '" style="display:none;">' . $fact . '</span>
 					';
 				}
-				
+
 				$html .= '
 						<input type="hidden" id="current_fact" value="0" />
 						<input type="hidden" id="max_facts" value="' . count( $facts ) . '" />
@@ -168,28 +168,38 @@ class Index extends Controller{
 				';
 				$return = array( 'html' => $html );
 				break;
-				
+
 			case "secondary-nav":
-				
-				$return = Common::getHtml( 'secondary-nav', array( 
-					'options' => $this->m_valid_views, 
-					'selected_value' => $this->m_controller_vars['sub'], 
-					'active_controller_name' => $this->m_linked_objects['view']->m_controller_name ) 
+				$return = Common::getHtml( 'secondary-nav', array(
+					'options' => $this->m_valid_views,
+					'selected_value' => $this->m_controller_vars['sub'],
+					'active_controller_name' => $this->m_linked_objects['view']->m_controller_name )
 				);
 				break;
 
 			case 'anniversary-blog':
-				$return = array('html' => 'stuff');
+
+				$html = '
+					<div class="padder_10 header_text color_brown">
+						First Anniversary
+					</div>
+
+					<div class="padder_10">
+						<img src="/images/anniversary1.jpg" style="width:550px;"/>
+					</div>
+					';
+
+				$return = array('html' => $html);
 				break;
-				
+
 			default:
 				$return = array( 'html' => "This is index default view." );
 				break;
 		}
-		
+
 		return $return;
-		
+
 	}//getHtml()
-		
+
 }//class Index
 ?>
