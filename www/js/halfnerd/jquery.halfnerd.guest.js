@@ -31,7 +31,7 @@ $( document ).ready( function(){
 					
 					$.ajax({
 						type:'post',
-						url: '/www/ajax/halfnerd_helper.php?task=guest&process=' + process,
+						url: '/ajax/halfnerd_helper.php?task=guest&process=' + process,
 						data:$( "#guest_list_form" ).serialize( true ),
 						success: function( reply ) {
 							

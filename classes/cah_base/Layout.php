@@ -76,9 +76,9 @@ class Layout
 		<html xmlns="http://www.w3.org/1999/xhtml" ' . $fb_xmls . '>
 		
 		<head>
+		
 			<meta name="viewport" content="width=device-width; user-scalable=1;" >
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-			
 			<title>' . $alias . ' - ' . $site . '</title>
 
 			<link rel="icon" type="image/png" src="/favicon.ico" />
