@@ -20,9 +20,10 @@ class Index extends Controller{
 		parent::setControllerVars( $controller_vars );
 		
 		$this->m_valid_views = array( 
+			'anniversary-blog' => "Anniversary Blog",
 			'her-story' => "Her Story",
 			'his-story' => "His Story", 
-			'did-you-know' => "Did You Know" 
+			'did-you-know' => "Did You Know",
 		);
 		
 	}//constructor
@@ -33,10 +34,9 @@ class Index extends Controller{
 	public function setContent() 
 	{
 		$this->m_controller_vars['sub'] = $this->validateCurrentView();
-		
 		$s_nav = $this->getHtml( 'secondary-nav', array() );
 		$content = $this->getHtml( $this->m_controller_vars['sub'], array() );
-		
+
 		//grab home article
 		$this->m_content = '
 		<div class="grid_10">
@@ -176,6 +176,10 @@ class Index extends Controller{
 					'selected_value' => $this->m_controller_vars['sub'], 
 					'active_controller_name' => $this->m_linked_objects['view']->m_controller_name ) 
 				);
+				break;
+
+			case 'anniversary-blog':
+				$return = array('html' => 'stuff');
 				break;
 				
 			default:

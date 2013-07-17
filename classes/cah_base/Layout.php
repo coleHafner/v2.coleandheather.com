@@ -81,6 +81,8 @@ class Layout
 			
 			<title>' . $alias . ' - ' . $site . '</title>
 
+			<link rel="icon" type="image/png" src="/favicon.ico" />
+
 			<link rel="stylesheet" href="' . $file_paths['css_ex'] . '/960_grid.css" type="text/css" />
 			<link rel="stylesheet" href="' . $file_paths['css_ex'] . '/jquery-ui-1.8.1.custom.css" type="text/css" />
 			<link rel="stylesheet" href="' . $file_paths['css_ex'] . '/imgbox.css" type="text/css" />

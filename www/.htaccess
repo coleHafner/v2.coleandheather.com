@@ -1,4 +1,6 @@
-Options +FollowSymLinks
+# For security reasons, Option followsymlinks cannot be overridden.
+#Options +FollowSymLinks
+Options +SymLinksIfOwnerMatch
 
 RewriteEngine on
 RewriteRule ^_([a-z]+)/([^/]+)/([^/]+)/([^/]+) ?v=$1&sub=$2&id1=$3&id2=$4 [NC]
@@ -8,5 +10,9 @@ RewriteRule ^_([a-z]+) ?v=$1 [NC]
 
 ErrorDocument 404	/index.php
 
-php_value include_path "./:/usr/local/lib/php:/usr/local/www/coleandheather.com/classes:/usr/local/www/coleandheather.com/classes/extensions"
-php_flag register_globals off
+# File modified on Tue Apr 19 22:54:04 2011 by server
+# For security reasons, mod_php is not used on this server. Use a php.ini file for php directives
+# php_value include_path "./:/usr/local/lib/php:/usr/local/www/coleandheather.com/classes:/usr/local/www/coleandheather.com/classes/extensions"
+# File modified on Tue Apr 19 22:54:04 2011 by server
+# For security reasons, mod_php is not used on this server. Use a php.ini file for php directives
+# php_flag register_globals off

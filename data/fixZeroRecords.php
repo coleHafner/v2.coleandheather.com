@@ -1,8 +1,9 @@
-#!/usr/local/bin/php -q
+#!/ramdisk/bin/php5 -q
 <?
 
-ini_set( "include_path", "./:/usr/local/www/coleandheather.com/classes" );
-require_once( 'cah_base/Common.php' );
+ini_set( "include_path", "./:/home8/colehafn/public_html/coleandheather.com/classes" );
+
+require_once( "cah_base/Common.php" );
 $common = new Common();
 
 $sql = "SHOW TABLES";
