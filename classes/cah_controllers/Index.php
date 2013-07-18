@@ -3,7 +3,6 @@
  * Controls the home page content.
  * @since	20100425, halfNerd
  */
-
 require_once( "cah_base/Controller.php" );
 require_once( "cah_base/Article.php" );
 require_once( "cah_base/File.php" );
@@ -180,12 +179,22 @@ class Index extends Controller{
 			case 'anniversary-blog':
 
 				$html = '
-					<div class="padder_10 header_text color_brown">
+					<div class="padder_10_top header_text color_brown">
 						First Anniversary
 					</div>
 
 					<div class="padder_10">
-						<img src="/images/anniversary1.jpg" style="width:550px;"/>
+						<p>
+							Dinner at Variatble Quandry in Portland. Great food!
+						</p>
+						<img src="/images/anniversary1-1.jpg" style="width:550px;"/>
+					</div>
+
+					<div class="padder_10">
+						<p>
+							Our cake topper from the wedding! Still tasted great!
+						</p>
+						<img src="/images/anniversary1-3.jpeg" style="width:550px;"/>
 					</div>
 					';
 

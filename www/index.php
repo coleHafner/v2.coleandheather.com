@@ -1,6 +1,8 @@
 <?
+
 //start session
 session_start();
+
 
 //include files
 require_once( "cah_base/Common.php" );
@@ -27,11 +29,11 @@ if( !$common->controllerFileExists( $requested_controller ) )
 {
 	//include styles and scripts
 	echo $layout->getHtmlHeadSection();
-	
+
 	//show error message
-	echo Common::getHtml( "show-missing-controller-message", array( 
-		'requested_controller' => $requested_controller, 
-		'controller_path' => $common->compileControllerLocationBasePath() ) 
+	echo Common::getHtml( "show-missing-controller-message", array(
+		'requested_controller' => $requested_controller,
+		'controller_path' => $common->compileControllerLocationBasePath() )
 	);
 	exit;
 }
@@ -59,3 +61,10 @@ echo $content;
 echo $layout->getHtmlFooterSection();
 echo $layout->getClosingTags();
 ?>
+
+<script type="text/javascript">
+	$(function() {
+		if(!$('.side_bar').length) return;
+		$('.side_bar').css('height', $('.content').css('height'));
+	});
+</script>

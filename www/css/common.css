@@ -87,14 +87,13 @@ Content containers
 	background-position:top right;
 	*/
 	-moz-box-shadow:3px 3px 3px #888;
-	-webkit-box-shadow:3px 3px 3px #888; 
+	-webkit-box-shadow:3px 3px 3px #888;
 	box-shadow:-1px 2px 5px #888;
 }
 
 .content, .gallery_content {
 	postion:relative;
 	background-color:#FFF;
-	height:608px;
 	min-height:608px !important;
 	overflow:hidden;
 	/*
@@ -173,7 +172,7 @@ Navigation, logo, buttons
 	margin-bottom:10px;
 }
 
- .side_bar_nav li.selected, .side_bar_nav li.selected_hover, .side_bar_nav li:hover { 
+ .side_bar_nav li.selected, .side_bar_nav li.selected_hover, .side_bar_nav li:hover {
 	background-color:#FFF;
 	background-image: url( '/images/ribbon_end_end_left_tan.jpg' );
 	background-repeat:no-repeat;
@@ -490,7 +489,7 @@ Gallery
 }
 
 .gallery_pic_grid td div img:hover {
-	opacity:1;	
+	opacity:1;
 }
 
 .gallery_click img {
@@ -507,7 +506,7 @@ RSVP
 	-moz-border-radius:.5em .5em 0em 0em;
 	-webkit-border-radius:.5em .5em 0em 0em;
 	border-bottom:1px solid #DEDBDB;
-	
+
 }
 
 .rsvp_activation_form {
@@ -617,7 +616,7 @@ Wedding Info
 	float:left;
 	width:360px;
 	height:260px;
-	padding-right:10px; 
+	padding-right:10px;
 }
 
 .info_paragraph {
