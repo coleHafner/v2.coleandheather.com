@@ -86,7 +86,7 @@ class Layout
 			<link rel="stylesheet" href="' . $file_paths['css_ex'] . '/960_grid.css" type="text/css" />
 			<link rel="stylesheet" href="' . $file_paths['css_ex'] . '/jquery-ui-1.8.1.custom.css" type="text/css" />
 			<link rel="stylesheet" href="' . $file_paths['css_ex'] . '/imgbox.css" type="text/css" />
-			<link rel="stylesheet" href="' . $file_paths['css'] . '/common.css" type="text/css" />
+			<link rel="stylesheet" href="' . $file_paths['css'] . '/common.css?v=20130718" type="text/css" />
 			
 			<script type="text/javascript" src="' . $file_paths['js_ex'] . '/jquery-1.4.2.js"></script>
 			<script type="text/javascript" src="' . $file_paths['js_ex'] . '/jquery-ui-1.8.1.custom.min.js"></script>
