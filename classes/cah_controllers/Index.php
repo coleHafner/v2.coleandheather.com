@@ -180,6 +180,17 @@ class Index extends Controller{
 
 				$html = '
 					<div class="padder_10_top header_text color_brown">
+						Second Anniversary
+					</div>
+
+					<div class="padder_10">
+						<p>
+							Dinner at Wildwood Restaurant in Portland. Thanks to Jed and Prescilla for the gift certificate!
+						</p>
+						<img src="/images/anniversary2-1.jpg" style="width:550px;"/>
+					</div>
+
+					<div class="padder_10_top header_text color_brown">
 						First Anniversary
 					</div>
 
