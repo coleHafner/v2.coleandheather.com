@@ -63,8 +63,8 @@ echo $layout->getClosingTags();
 ?>
 
 <script type="text/javascript">
-	$(function() {
-		if(!$('.side_bar').length) return;
+	$(window).load(function() {
+		//if(!$('.side_bar').length) return;
 		$('.side_bar').css('height', $('.content').css('height'));
 	});
 </script>
