@@ -94,7 +94,7 @@ Content containers
 .content, .gallery_content {
 	postion:relative;
 	background-color:#FFF;
-	min-height:608px !important;
+	min-height:608px;
 	overflow:hidden;
 	/*
 	-moz-box-shadow: inset 0px 5px 5px #333;
@@ -629,14 +629,14 @@ Wedding Info
 .map_canvas {
 	position:relative;
 	width:55%;
-	height:100%;
+	height:608px;
 	float:left;
 }
 
 .directions_canvas {
 	position:relative;
 	width:45%;
-	height:100%;
+	height:608px;
 	float:left;
 	overflow:auto;
 }
